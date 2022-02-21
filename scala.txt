@@ -1,0 +1,780 @@
+1)Write a program to create a MAP with empname and deptname. 
+Print details of all employees working in the same department, as “Mr. Joshi”.
+(create MAP : 10M logic: 10M print :5M)
+>>
+class employee(var name:String,var dept:String){
+    def display(){
+        println("Name: "+name)
+        println("Department: "+dept)
+    }
+}
+object demo{
+    def main(args:Array[String]){
+        val m=Map("joshi"->"marketing","rakesh"->"marketing","snatosh"->"finance")
+        val j=m("joshi")
+        for((k,v)<-m){
+            if(v==j){
+                val e1=new employee(k,v)
+                e1.display()
+            }
+        }
+        
+    }
+}
+
+2)A. Write a program to read five random numbers and convert it to binary
+and octal using user defined functions.
+(random number : 5M binary : 5M Octal : 5M)
+>>
+object demo{
+    def main(args:Array[String]){
+        println("Enter the number:")
+        val n=scala.io.StdIn.readInt()
+        var x=scala.util.Random
+        for(i<-1 to n){
+            var n1=x.nextInt(100)
+            println()
+            println("\nNumber: %d".format(n1))
+            bin(n1)
+            oct(n1)
+        }
+    }
+    def bin(n:Int){
+        var i=0
+        var num=n
+        var A=new Array[Int](10)
+        while(num>0){
+            A(i)=num%2
+            i=i+1
+            num=num/2
+        }
+        println("\nBinary:")
+        for(j<-i-1 to 0 by -1){
+            print(A(j))
+        }
+    }
+    def oct(n:Int){
+        var i=0
+        var num=n
+        var A=new Array[Int](10)
+        while(num>0){
+            A(i)=num%8
+            i=i+1
+            num=num/8
+            
+        }
+        println("\nOctogonal:")
+        for(j<-i-1 to 0 by -1){
+            print(A(j))
+        }
+    }
+}
+
+
+2)B. Write a program to calculate average of all prime numbers between n1
+and n2 (take n1 and n2 from user).
+(accept n1, n2 : 5M prime numbers : 5M average :5M)
+>>
+
+object demo{
+    def main(args:Array[String]){
+        println("Enter the number1:")
+        var n1=scala.io.StdIn.readInt()
+        println("Enter the number2:")
+        var n2=scala.io.StdIn.readInt()
+        
+        prim_avg(n1,n2)
+    }
+    def prim_avg(n1:Int,n2:Int){
+        var sum=0
+        var count=0
+        var avg=0
+        println("Prime number:")
+        for(i<-n1 to n2){
+            var check=true
+            for(j<-2 to i/2){
+                if(i%j==0){
+                    check=false
+                }
+            }
+            
+            if(check==true){
+                count+=1
+                sum+=i
+                print(i+" ")
+            }
+        }
+        println()
+        avg=sum/count
+        println("Count: %d".format(count))
+        println("Average: %d".format(avg))
+    }
+}
+
+3)Create an abstract class Order (id, description). 
+Derive two classes PurchaseOrder and SalesOrder with details of Supplier and Customer respectively. 
+Create object of each PurchaseOrder And SalesOrder. Display the details of the supplier and customer.
+(abstract class : 5M derivation : 20 M display : 10M)
+>>
+abstract class Order{
+    def display()
+}
+class customer(cusid:Int,cusName:String)extends Order{
+    def display(){
+        println("\nCustomer Details: ")
+        println("Customer Name: "+cusName)
+        println("Customer ID: "+cusid)
+    }
+}
+class supplier(susid:Int,susname:String)extends Order{
+    def display(){
+        println("\nSupplier Details: ")
+        println("Supplier Name: "+susname)
+        println("Supplier ID: "+susid)
+    }
+}
+
+object demo{
+    def main(args:Array[String]){
+        var c1=new customer(111,"Ravi")
+        c1.display()
+        var s1=new supplier(123,"Santosh")
+        s1.display()
+    }
+}
+
+4)Write a program to calculate transpose of a matrix and check if the resultant matrix is lower triangular or not.
+(accept : 5 M transpose : 10M check lower triangular:10M display:5M)
+>>
+object demo{
+    def main(args:Array[String]){
+        var a=Array.ofDim[Int](2,2)
+        println("Enter the number: ")
+        var i=0
+        while(i<2){
+            var j=0
+            while(j<2){
+                print(i,j)
+                print(": ")
+                a(i)(j)=scala.io.StdIn.readInt()
+                j+=1
+            }
+            i+=1
+        }
+        println("\nMatrix:")
+        for(i<-0 until 2){
+            for(j<-0 until 2){
+                print(a(i)(j)+"\t")
+            }
+            println()
+        }
+        println("\nTranpose:")
+        for(i<-0 until 2){
+            for(j<-0 until 2){
+                print(a(j)(i)+"\t")
+            }
+            println()
+        }
+        var check=true
+        for(j<-0 until 2){
+            for(i<-j+1 until 2){
+                if(a(j)(i)!=0){
+                    check=false
+                }
+            }
+        }
+        if(check==true){
+            println("\nGiven matrix transpose is Upper triangle.")
+        }
+        else{
+            println("\nGiven matrix transpose is not Upper triangle.")
+        }
+    }
+}
+
+5)Write a program to create two sets of strings and find common strings between them. 
+Merge sets after removing common strings. Display resultant set.
+(create sets:10M find common elements:5M merge removing common :10M display:5M)
+>>
+object demo{
+    def main(args:Array[String]){
+        var set1=Set("a","b","z","e","c","d")
+        var set2=Set("a","b","c","d")
+        
+        var set3=set1&set2
+
+        var set41=set1++set2
+        var set4=set41--set3
+        println("\nInitial Set:")
+        println(set1)
+        println(set2)
+        println("\nCommon:")
+        println(set3)
+        println("\nMerge of uncommon:")
+        println(set4)
+    }
+}
+
+6)Write a program to read a character and a string from user and remove first and last occurrence of the character from the string. 
+Display resultant string after reversing its case.
+(read : 10 M remove occurance:10M reverse : 5M display :5M)
+>>
+object demo{
+    def main(args:Array[String]){
+        println("Enter the string")
+        var str=scala.io.StdIn.readLine()
+        val str1=str.substring(1,str.length()-1)
+        val str2=str1.reverse
+        println("\nString: "+str)
+        println("\nRemoved character: "+str1)
+        println("\nInvered string: "+str2)
+    }
+}
+
+7)Write a program for multiplication of two matrices. 
+Also check if the resultant matrix is upper triangular or not.
+>>
+object demo{
+    def main(args:Array[String]){
+        var m1=Array.ofDim[Int](3,3)
+        var m2=Array.ofDim[Int](3,3)
+        var m3=Array.ofDim[Int](3,3)
+        var i=0
+        var j=0
+        println("Enter Number for Matrix:1")
+        i=0
+        while(i<3){
+            j=0
+            while(j<3){
+                print(i,j)
+                print(": ")
+                m1(i)(j)=scala.io.StdIn.readInt()
+                j+=1
+            }
+            i+=1
+        }
+        println("Enter Number for Matrix:2")
+        i=0
+        while(i<3){
+            j=0
+            while(j<3){
+                print(i,j)
+                print(": ")
+                m2(i)(j)=scala.io.StdIn.readInt()
+                j+=1
+            }
+            i+=1
+        }
+        
+        println("\nMatrix:1")
+        for(i<-0 until 3){
+            for(j<-0 until 3){
+                print(m1(i)(j)+"\t")
+            }
+            println()
+        }
+        println("\nMatrix:2")
+        for(i<-0 until 3){
+            for(j<-0 until 3){
+                print(m2(i)(j)+"\t")
+            }
+            println()
+        }
+        i=0
+        while(i<3){
+            j=0
+            
+            while(j<3){
+                var sum=0
+                var k=0
+                while(k<3){
+                    sum=sum+(m1(i)(k)*m2(k)(j))
+                    k=k+1
+                }
+                m3(i)(j)=sum
+                j+=1
+            }
+            i+=1
+        }
+        println("\nMatrix:3")
+        for(i<-0 until 3){
+            for(j<-0 until 3){
+                print(m3(i)(j)+"\t")
+            }
+            println()
+        }
+        var check=true
+        for(i<-1 until 3){
+            for(j<-0 until 3){
+                if(m3(i)(j)!=0){
+                    check=false
+                }
+            }
+        }
+        if(check==true){
+            println("Matrix3: Is upper triangle.")
+        }
+        else{
+            println("Matrix3:Is not a Upper triangle.")
+        }
+    }
+}
+
+8)Create array of strings and read a new string from user. 
+Display all the strings from the array that contain the new string.
+(accept array and string: 10M check string logic : 10M display 10M)
+>>
+import scala.collection.mutable.ArrayBuffer
+object demo{
+    def main(args:Array[String]){
+        val days=ArrayBuffer("sun","mon","tue")
+        println("Enter the string:")
+        val str=scala.io.StdIn.readLine()
+        val new1=str+:days
+        println(new1)
+    }
+}
+
+
+9)Create a MAP for storing the following information about 5 students, 
+where each Student is described with Name and percentage. 
+Display Student information with highest percentage.
+(create MAP : 10M select with highest logic: 10M display : 10M)
+>>
+class student(var name:String,var per:Int){
+    def display(){
+        println("Name: "+name)
+        println("Percentage: "+per)
+    }
+}
+object demo{
+    def main(args:Array[String]){
+        val m1=Map("raj"->88,"aditya"->99,"nikhil"->95,"vishal"->56,"santosh"->77)
+        println("\nDatabse:")
+        for((k,v)<-m1){
+            var s1=new student(k,v)
+            s1.display()
+        }
+        println("\nMax Perecntage:")
+        val result=Map(m1.maxBy(_._2))
+        for((k,v)<-result){
+            var s2=new student(k,v)
+            s2.display()
+        }
+    }
+}
+
+10)Create abstract class Shape with abstract functions volume() and display(). 
+Extend two classes Cube and Cylinder from it. 
+Create object of Cube and Cylinder, Calculate volume of each and display it.
+(create abstract class :5M extend classes : 5M functions: 5M each display: 10M)
+>>
+abstract class shape{
+    def display()
+}
+class cube(var x:Int)extends shape{
+    var volume=x*x*x
+    var sh="Cube"
+    def display(){
+        println("Name: "+sh)
+        println("Volume: "+volume)
+    }
+}
+class cylinder(var x:Int,var h:Int)extends shape{
+    var volume=3.14*x*x*h
+    var sh="Cylinder"
+    def display(){
+        println("Name: "+sh)
+        println("Volume: "+volume)
+    }
+}
+
+object demo{
+    def main(args:Array[String]){
+        var cube1=new cube(12)
+        cube1.display()
+        
+        var cylinder1=new cylinder(23,6)
+        cylinder1.display()
+    }
+}
+
+11)Write a program to read two strings. 
+Find the occurrence of second string in the first string. 
+Reverse the case of each occurrence in the string and display resultant string.
+(read : 5M find occurance:10M reverse : 10M display: 5M)
+>>
+object demo{
+    def main(args:Array[String]){
+        var str1="helloworld"
+        var str2="world"
+        var l1=str1.length
+        var l2=str2.length
+        var res=0
+        for(i<-1 to l1-l2){
+            if(str2==(str1.substring(i,i+5))){
+                res+=1
+                
+            }
+            
+        }
+        if(res>=1){
+            println("Occurance: "+res)
+        }
+        else{
+            println("no occuracne")
+        }
+        println("Reverse:")
+        var str3=str2.reverse
+        println(str3)
+        
+    }
+}
+
+12)Write a program for multiplication of two matrices. 
+Find determinant of resultant matrix.
+(Accept matrix: 5M Multiplication : 10M Determinant : 10M Display:5M)
+>>
+object demo{
+    def main(args:Array[String]){
+        var mat1=Array.ofDim[Int](2,2)
+        var mat2=Array.ofDim[Int](2,2)
+        var mat3=Array.ofDim[Int](2,2)
+        
+        var i=0
+        var j=0
+        var k=0
+        var sum=0
+        
+        print("Enter no :\n")
+        i=0
+        while(i<2){
+            j=0
+            while(j<2){
+                print(i,j)
+                mat1(i)(j)=scala.io.StdIn.readInt()
+                j=j+1
+            }
+            i=i+1
+        }
+        print("Enter no :\n")
+        i=0
+        while(i<2){
+            j=0
+            while(j<2){
+                print(i,j)
+                mat2(i)(j)=scala.io.StdIn.readInt()
+                j=j+1
+            }
+            i=i+1
+        }
+        print("Matrix 1:\n")
+        for(i<-0 until 2){
+            for(j<-0 until 2){
+                print(mat1(i)(j)+"\t")
+            }
+            println()
+        }
+        print("Matrix 2:\n")
+        for(i<-0 until 2){
+            for(j<-0 until 2){
+                print(mat2(i)(j)+"\t")
+            }
+            println()
+        }
+        i=0
+        while(i<2){
+            j=0
+            while(j<2){
+                sum=0
+                k=0
+                while(k<2){
+                    sum=sum+(mat1(i)(k)*mat2(k)(j))
+                    k=k+1
+                }
+                mat3(i)(j)=sum
+                j=j+1
+            }
+            i=i+1
+        }
+        print("Matrix 3:\n")
+        for(i<-0 until 2){
+            for(j<-0 until 2){
+                print(mat3(i)(j)+"\t")
+            }
+            println()
+        }
+        var x=(mat3(0)(0)*mat3(1)(1))-(mat3(0)(1)*mat3(1)(0))
+        print(x)
+    }
+}
+
+
+13)Write a program to merge two sets of integers and calculate sum of all integers in the merged set. 
+Also display largest and smallest element from merged set.
+(Merge : 10M sum :5M largest :5M smallest :5 M display : 5M)
+>>
+object demo{
+    def main(args:Array[String]){
+        var set1=Set(1,2,3,4,5,6,6,5,3,23,232,424,34,3223,24)
+        var sum=0
+        for(i<-set1){
+            sum+=i
+        }
+        var max1=set1.max
+        var min1=set1.min
+        println("MAX: "+max1)
+        println("MIN: "+min1)
+        println("SUM: "+sum)
+    }
+}
+
+14)Design an abstract class Employee with computeSal() as an abstract function. 
+Create two subclasses Worker and Manager. 
+Salary of worker should be calculated on hourly basis of work and Salary of Manager should be calculated on monthly basis with additional incentives. 
+Create five objects each of Worker and Manager class, and display their details.
+(abstract class and function :10M subclasses:5M salary calculation: 5 M each display:5M)
+>>
+abstract class employee{
+    def computesal()
+}
+class Worker()extends employee{
+    println("Enter the hours: ")
+    val h=scala.io.StdIn.readInt()
+    val sal=h*50
+    def computesal(){
+        println("Total Salary: "+sal)
+        println("Hours Worked: "+h)
+        println("Salary per Hour: 50")
+    }
+}
+class Manager()extends employee{
+    println("Enter the month: ")
+    val mon=scala.io.StdIn.readInt()
+    println("Enter the incentives: ")
+    val inc=scala.io.StdIn.readInt()
+    val sal=mon*20000+inc
+    def computesal(){
+        println("Total Salary: "+sal)
+        println("Month: "+mon)
+        println("Incentives: "+inc)
+        println("Salary per Month: 20000")
+    }
+}
+object demo{
+    def main(args:Array[String]){
+        var m1=new Manager()
+        m1.computesal()
+        var w1=new Worker()
+        w1.computesal()
+    }
+}
+
+15)Write a program to create a list of 1 to 100 numbers. 
+Create second list from first list selecting numbers which are perfect square. 
+Display it (create first list: 10M find perfect square : 10M create second list :5 M display : 5M)
+>>
+import scala.collection.mutable.ListBuffer
+object demo{
+    def main(args:Array[String]){
+        var list1=new ListBuffer[Int]()
+        var list2=new ListBuffer[Int]()
+        for(i<-1 to 100){
+            list1+=i
+        }
+        for(i<-list1){
+            if(i*i<=list1.max){
+                list2+=i*i
+            }
+        }
+        println(list1)
+        println(list2)
+    }
+}
+
+16)Write user defined functions to reverse the case of a given string and call the function using MAP.
+(user defined function :10 M reverse case logic : 10M
+call using MAP : 10M)
+>>
+object demo{
+    def main(args:Array[String]){
+        val m1=Map("raj"->88,"raju"->58,"ravi"->78,"rahul"->60,"rakesh"->89)
+        val reverseMap=for((k,v)<-m1)yield(v,k)
+        println("Before reversing:")
+        println(m1)
+        println("After reversing:")
+        println(reverseMap)
+    }
+    
+}
+
+17)Define a class SavingAccount (accNo, name, balance, minBalance). 
+Define appropriate constructors and operations withdraw(), deposit(), viewBalance(). 
+Create an array of SavingAccount objects and perform operations and display them.
+(define class:5M constructors: 10M operations: 5 M each)
+>>
+import scala.collection.mutable.ArrayBuffer
+class savingAccount{
+    val name=new ArrayBuffer[String]()
+    val account_no=new ArrayBuffer[Int]()
+    val bank_bal=new ArrayBuffer[Int]()
+    
+    name+=("aditya","rahul","santosh")
+    account_no+=(111,222,333)
+    bank_bal+=(10000,20000,15000)
+    
+    def details(){
+        println("Name: "+name)
+        println("Account Number: "+account_no)
+        println("Bank Balance: "+bank_bal)
+    }
+    
+    def withdraw(){
+        println("Enter the account number: ")
+        val acc_num=scala.io.StdIn.readInt()
+        val index=account_no.indexOf(acc_num)
+        println("Enter the amount want to withdraw: ")
+        val debit=scala.io.StdIn.readInt()
+        if(bank_bal(index)-debit>=100){
+            bank_bal(index)-=debit
+            println("Amount debited sucessfully")
+            println("Remaining balance: "+bank_bal(index))
+        }
+        else{
+            println("Amount cannot withdraw due to low balance")
+            println("Amount Balance:"+bank_bal(index))
+        }
+    }
+    def deposit(){
+        println("Enter the account number: ")
+        val acc_num=scala.io.StdIn.readInt()
+        println("Enter the amount you want to deposite:")
+        val dep=scala.io.StdIn.readInt()
+        val index1=account_no.indexOf(acc_num)
+        bank_bal(index1)+=dep
+        println("Amount deposit sucessfull")
+        println("Balance: "+bank_bal(index1))
+    }
+}
+object demo{
+    def main(args:Array[String]){
+        println("1-Details\n2-Withdraw\n3-Deposit")
+        println("Enter the option:")
+        val check=scala.io.StdIn.readInt()
+        var s1=new savingAccount()
+        
+        if(check==1){
+            s1.details()
+        }
+        if(check==2){
+            s1.withdraw()
+        }
+        if(check==3){
+            s1.deposit()
+        }
+        
+    }
+}
+
+18)Write a program to calculate sum of all perfect numbers between 1 and 100. Display perfect numbers also.
+(find Perfect number : 10 M sum : 10M display numbers and sum: 10M)
+
+>>
+object demo{
+    def main(args:Array[String]){
+        var count=0
+        for(n<-1 to 100){
+            var sum=0
+           
+            for(i<-1 to n-1){
+                if(n%i==0){
+                    sum+=i
+                }
+            }
+            if(sum==n){
+                print(n+" ")
+                count+=1
+            }
+        }
+        println()
+        println(count)
+    }
+}
+
+19)A. Create lists using five different methods and display each of them.(List style, java style, fill, range, tabulate methods)
+(each method : 2 M display : 1M each)
+>>
+object demo{
+    def main(args:Array[String]){
+        val list1=1::2::3::Nil
+        println("\nList Style: "+list1)
+        val list2=List(1,2,3)
+        println("\nJava Style: "+list2)
+        val list3=List.range(1,10)
+        println("\nRange: "+list3)
+        val list4=List.fill(4)("add")
+        println("\nFill: "+list4)
+        val list5=List.tabulate(5)(n=>n*n)
+        println("\nTabular: "+list5)
+    }
+}
+
+
+19)B. Create a list of 50 members using function 2n+3. Create second list excluding all elements multiple of 5.
+(Create list with function: 5M Create second list : 5M display : 5M)
+>>
+import scala.collection.mutable.ListBuffer
+
+object demo{
+    def main(args:Array[String]){
+        var list1=new ListBuffer[Int]()
+        var list2=new ListBuffer[Int]()
+        for(n<-1 to 50){
+            list1+=2*n+3
+        }
+        for(i<-list1){
+            if(i%5==0){
+                list2+=i
+            }
+        }
+        println("\nList1:")
+        println(list1)
+        println("\nList2:")
+        println(list2)
+        
+        
+    }
+}
+
+
+20)Create a list of 10 random numbers. 
+Create another list from members of first list using function 3n2+4n+6. 
+Display second list in ascending order.
+(random numbers list: 10M create list with function: 10M display with ascending order : 10M)
+>>
+import scala.collection.mutable.ListBuffer
+
+object demo{
+    def main(args:Array[String]){
+        val list1=new ListBuffer[Int]()
+        val list2=new ListBuffer[Int]()
+        val n=scala.util.Random
+        println("Enter the number to generate random number:")
+        var num=scala.io.StdIn.readInt()
+        for(i<-1 to num){
+            var n1=n.nextInt(100)
+            list1+=n1
+        }
+        println("\nList:1")
+        println(list1)
+        for(n<-list1){
+            list2+=3*(n*n)+4*(n)+6
+        }
+        println("\nList:2")
+        println(list2)
+        val list3=list2.reverse
+        println("\nList:3")
+        println(list3)
+        
+    }
+}

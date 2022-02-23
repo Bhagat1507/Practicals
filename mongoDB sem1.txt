@@ -1,0 +1,352 @@
+slip:1
+>use dep
+>db.createCollection("student")
+>db.createCollection("course")
+
+>
+db.student.insert([{
+	name:___,
+	age:____,
+	gender:___,
+	"course name":______,
+	percentage:_____,
+	location:_____,
+	contact____,
+}])
+
+db.courese.insert([{
+	"course name":________,
+	"student name":________,
+	marks:___,
+}])
+
+a. Count the number of students having more than 80 percentage [21/2]
+>db.student.find({percentage:{$gt:80}})
+
+b. List the name and age of the oldest 5 students with marks less than 40[21/2]
+>db.student.find({marks:{$lt:40}}).sort({age:-1}).limit(5)
+
+c. Use a cursor to display names of students whose percentage is greater than 70. [5]
+>db.student.find({percentage:{$gt:70},{student:1}})
+
+d. Find all female students which either live in Pune and Mumbai or got percentage less than 50 [5]
+>db.student.find({$and:[{gender:"female"},{$or:[{$or:[{location:["Mumbai","Pune"]},{percentage:{$lt:50}}]}]}]})
+
+
+slip:2
+
+>use sales
+>db.createCollection("inventory")
+>db.createCollection("customer")
+>
+db.inventory([{
+	"inventory name":____,
+	brand:___,
+	price:______,
+	
+}])
+
+db.customer([{
+	"customer name":_____,
+	"product name":_____,
+	brand:_____,
+	price:_____,
+	status:_____,
+}])
+
+a. List all products in the inventory. [21/2]
+>db.inventory.find().pretty()
+
+b. List the details of orders with a value >10000. [21/2]
+>db.customer.find({price:{$gt:10000}})
+
+c. List all the orders which has not been processed (invoice not generated). [5]
+>db.customer.find({status:"incomplete"})
+
+d. List all the orders along with their invoice for “Mr. Arun Kumar”. [5]
+>db.customer.find("customer name":"Arun Kumar")
+
+
+slip:3
+>use Book
+>db.createCollection("book")
+>db.createCollection("publisher")
+
+>
+db.book.insert([{
+	"book name":_____,
+	writer:____,
+	publisher:______,
+	price:_____,
+	language:_____,
+}])
+
+db.publisher.insert([{
+	"publisher name":_____,
+	"book name":______,
+	writer:_______,
+	language:_______,
+	location:_____,
+	year:______,
+}])
+
+a. List all Publishers which are located in Mumbai [21/2]
+>db.publisher.find(location:"Mumbai")
+
+b. List the details of books with a cost >1000. [21/2]
+>db.book.find({price:{$gt:1000}})
+
+c. List all the book which are written by “RaghuRamkrishnan” and published in 2017 [5]
+>db.publisher.find({$and:[{writer:"RaghuRamkrishnan"},{year:{$et:2017}}]})
+
+d. List all the books published by “O Reilly” and are written either in English or Marathi [5]
+>db.book.insert({$amd:[{"publisher name":"O Reilly"},{$or:[{language:"English"},{language:"Marathi"}]}]})
+
+slip:4
+
+>use hospital
+>db.createCollection("hospital")
+>db.createCollection("doctor")
+>db.createCollection("patient")
+
+>
+db.hospital.insert([{
+	"hospital name":______,
+	speciality:_________,
+	doctor:__________,
+	rating:_,
+	
+}])
+
+db.doctor.insert([{
+	"doctor name":_________,
+	speciality:_________,
+	hospital:_______,
+	time:_______,
+}])
+
+db.patient.insert([{
+	"patient name":______,
+	"hospital name":________,
+	rating:_________,
+}])
+
+a. List the names of hospitals with pediatric specialization. [21/2]
+>db.hospital.find({speciality:"pediatric"})
+
+b. List the Names of doctors who are visiting “Jehangir Hospital ” on Mondays. [21/2]
+>db.doctor.insert({$and:[{"hospital name":"Jehangir Hospital"},{time:"Monday"}]})
+
+c. List the names of hospitals which are multispecialty hospitals where Dr. Kale visits. [5]
+>db.hospital.find({$and:[{speciality:"multispecialty"},{"doctor name":"Kale"}]})
+
+d. List the names of people who have given a rating of (>=3) for “Jehangir Hospital” [5]
+>db.patient.find({rating:{$gte:3},{"patient name":1}})
+
+slip:5
+
+>use Blog
+>db.createCollection("blog")
+>db.createCollection("comment")
+
+>
+db.blog.insert([{
+	title:______,
+	tag:______,
+	writter:_______,
+	year:_____,
+}])
+
+db.comment.insert([{
+	"comment by":____,
+	comment:______,
+	title:_____,
+	tag:__,
+	"blog year":______,
+	post:new Date("2019-03-02")
+	like:____,
+	self_like:_____,
+	
+	
+}])
+
+a. List all the blogs which are tagged as food blogs [21/2]
+>db.blog.find({tag:"food"})
+
+b. List all the blogs that are posted by “Amit” [21/2]
+>db.blog.find({writer:"Amit"})
+
+c. List all the blogs that are tagged a “travel blogs” and were created before 2018 and are have comments written by “Sagar” and commented as “like” [5]
+>db.comment.find({$and:[{tag:"travel"},{$and:[{"blog year":{$lt:2018}},{$and:[{"comment by":"Sagar},{comment:"like"}]}]}]})
+
+d. List all the blogs that have comments which are posted before August 2019 or are not liked by the user posting the comment [5]
+>db.comment.find({$and:[{post:{$lt:{$date:"2019-07-30"}}},{self_like:"no"}]})
+
+slip:6
+
+>use travel
+>db.createCollection("industry")
+>db.createCollection("customer")
+
+>
+db.industry.insert([{
+	"industry name":_____,
+	source:_______,
+	destination:_______,
+	rating:_____,
+	price:______,
+}])
+
+db.customer.insert([{
+	trip:__,
+	"customer name":___,
+	destination:________,
+	expenses:_________,
+	year:_____,
+}])
+
+a. List the details of packages provided by “Veena World” [21/2]
+>db.industry.find({"industry name":"Veena World"})
+
+b. List the highest rated tourism industry. [21/2]
+>db.industry.find().sort({rating:-1}).limit(1)
+
+c. List all the details of expenses made by John on his first 3 trips. Also display the total expenses. [5]
+>db.customer.aggregate({$match:{$and:[{trip:{$gte:1}},{trip:[{$lte:3}]}]}},{$group:{_id:null,sum:{$sum:"$expenses"}}})
+
+d. List the names of the customers who went on a tour to Shillong. [5]
+>db.customer.find({destination:"Shillong"},{name:1})
+
+slip:7
+
+>use research
+>db.createCollection("scientist")
+>db.createCollection("award")
+
+>
+db.scientist.insert([{
+	fname:______,
+	lname:_____,
+	contribution:_______,
+	field:_,
+	born:______,
+	die:______,
+}])
+
+db.award.insert([{
+	"award name":____,
+	"scientist name":________,
+	contribution:_______,
+	field:_____,
+	year:_____,
+	
+}])
+
+a. List names of all scientists whose last name starts with a N [21/2]
+>db.scientist.find({lname:{$regex:"^N"}})
+
+b. List all scientist who were born after 1/1/1950 and are still alive [21/2]
+>db.scientist.find({$and:[born:{$gt:{$date:"1950-1-1"}},{die:"still alive"}]})
+
+c. For each year list the identifiers of scientists that received an award in that year [5]
+>db.award.find().sort({year:1})
+
+d. List all scientists who have received “Turing Machine Award” before 1980 and has made contributed in 4 fields [5]
+>db.award.find({$and:[{"award name":"Turing Machine Award"},{$and:[{year:{$lt:1980}},{field:{$et:4
+
+slip:8
+
+>use inventory
+>db.createCollection("warehouse")
+>db.createCollection("product")
+
+>
+db.product.insert([{
+	name:____,
+	status:_______,
+	tag:_____,
+	"number of tag":_____,
+	quantity:________,
+	height:_______,
+	
+}])
+
+db.warehouse.insert([{
+	"warehouse name":_____,
+	"product name":______,
+	height:________,
+	quantity:______,
+	status:______,
+}])
+
+a. List all items from the inventory where the status equals "D" and qty is greater than 30 [21/2]
+>db.product.find({$and:[{status:"D"},{quantity:{$gt:30}}]})
+
+b. List all items which have 3 tags [21/2]
+>db.product.find({"number of tag":{$et:3}})
+
+c. List all items having status equal to “A” or having quantity less than 30 and height of the product should be greater than 10 [5]
+>db.product.find({$and:[{status:"A"},{$and:[{quantity:{$lt:30}},{height:{$gt:10}}]}]})
+
+d. Find all warehouse that keeps item “Planner” and having instock quantity less than 20 [5]
+>db.warehouse.find({$and:[{"product name":"Planner"},{quantity:{$lt:20}}]})
+
+slip:9
+>use Transaction
+>db.createCollection("transcation")
+
+>db.transcation.insert([{
+	name:____,
+	"item purchased":________,
+	tran_id:______,
+	method:_________,
+	price:_______,
+}])
+
+a. Find all transactions which were made by the user “John” [21/2 ]
+>db.transaction.find({name:"John"})
+
+b. Find all the transactions which were made using debit card [21/2]
+>db.transaction.find({method:"Debit card"})
+
+c. Find transaction id and total amount of purchase made using a credit card [5]
+>db.transaction.aggregate([{$match:{method:"credit card"}},{$group:{_id:"$tran_id",total:{$sum:$price}}}])
+
+d. Find the total payment for each payment type [5]
+>db.transaction.aggregate([{$group:{_id:null,total:{$sum:$price}}}])
+
+slip:10
+
+>use mobile
+>db.createCollection("shop")
+>db.createCollection("customer")
+
+>
+db.mobile.insert([{
+	brand:____,
+	series:____,
+	RAM:_______,
+	ROM:_______,
+	price:______,
+	rating:_______,
+}])
+
+db.customer.insert([{
+	name:_____,
+	brand:_______,
+	series:________,
+
+}])
+
+
+a. List the mobiles having RAM and ROM as 3GB and 32GB. [21/2 ]
+>db.mobile.find({and:[{RAM:{$et:3}},{ROM:{$et:32}}]})
+
+b. List the customers who bought Samsung J6. [21/2 ]
+>db.customer.find({$and:[{brand:"Samsung"},{series:"J6"}]})
+
+c. List the names of the distinct brands available. Also display the name of the brand with highest rating. [5]
+>db.mobile.find([$group:{_id:"brand",high:{$max:"$rating"}}])
+
+d. List all the customers in ascending order who bought iPhone 7plus.[5]
+>db.customer.find({$and:[{model:"iPhone"},{series:"7plus"}]}).sort(name:1)

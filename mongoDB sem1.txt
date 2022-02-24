@@ -100,7 +100,7 @@ c. List all the book which are written by “RaghuRamkrishnan” and published i
 >db.publisher.find({$and:[{writer:"RaghuRamkrishnan"},{year:{$et:2017}}]})
 
 d. List all the books published by “O Reilly” and are written either in English or Marathi [5]
->db.book.insert({$amd:[{"publisher name":"O Reilly"},{$or:[{language:"English"},{language:"Marathi"}]}]})
+>db.book.insert({$and:[{"publisher name":"O Reilly"},{$or:[{language:"English"},{language:"Marathi"}]}]})
 
 slip:4
 
